@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Web;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace AirtableApiClient
 {
@@ -13,17 +13,17 @@ namespace AirtableApiClient
 
     public class Sort
     {
-        [JsonPropertyName("fields")]
+        [JsonProperty("fields")]
         public string Field { get; set; }
 
-        [JsonPropertyName("direction")]
+        [JsonProperty("direction")]
         public SortDirection Direction { get; set; }
     }
 
 
     public class Fields
     {
-        [JsonPropertyName("fields")]
+        [JsonProperty("fields")]
         public Dictionary<string, object> FieldsCollection { get; set; } = new Dictionary<string, object>();
 
         public void AddField(string fieldName, object fieldValue)
@@ -40,12 +40,8 @@ namespace AirtableApiClient
             this.id = id;
         }
 
-        // Note: System.Text.Json's Serialization includes Properties by default
-        // So it good practice to use Property instead of Fields.
-        // Change 'field' to 'property' but not changing the case of 'i' in 'Id'
-        // to keep backward compatiblity.
-        [JsonPropertyName("id")]
-        public string id { get; set; }          
+        [JsonProperty("id")]
+        public string id;
     }
 
 

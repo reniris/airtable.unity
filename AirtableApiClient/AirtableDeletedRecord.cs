@@ -1,15 +1,13 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace AirtableApiClient
 {
     internal class AirtableDeletedRecord
     {
-        [JsonPropertyName("deleted")]
-        [JsonInclude]
-        public bool Deleted { get; set; }
+        [JsonProperty("deleted")]
+        internal bool Deleted { get; set; }
 
-        [JsonPropertyName("id")]
-        [JsonInclude]
-        public string Id { get; set; }
+        [JsonProperty("id")]
+        internal string Id { get; set; }
     }
 }

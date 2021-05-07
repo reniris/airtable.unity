@@ -1,34 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+using Newtonsoft.Json;
 
 namespace AirtableApiClient
 {
     public class AirtableRecordList
     {
-        [JsonPropertyName("offset")]
-        [JsonInclude]
+        [JsonProperty("offset")]
         public string Offset { get; internal set; }
 
-        [JsonPropertyName("records")]
-        [JsonInclude]
+        [JsonProperty("records")]
         public AirtableRecord[] Records { get; internal set; }
     }
 
 
     public class AirtableRecord
     {
-        [JsonPropertyName("id")]
-        [JsonInclude]
+        [JsonProperty("id")]
         public string Id { get; internal set; }
 
-        [JsonPropertyName("createdTime")]
-        [JsonInclude]
+        [JsonProperty("createdTime")]
         public DateTime CreatedTime { get; internal set; }
 
-        [JsonPropertyName("fields")]
-        [JsonInclude]
+        [JsonProperty("fields")]
         public Dictionary<string, object> Fields { get; internal set; } = new Dictionary<string, object>();
 
         public object
@@ -71,13 +65,13 @@ namespace AirtableApiClient
             var attachments = new List<AirtableAttachment>();
             try
             {
-                var json = JsonSerializer.Serialize(attachmentField);
-                var rawAttachments = JsonSerializer.Deserialize<IEnumerable<Dictionary<string, object>>>(json);
+                var json = JsonConvert.SerializeObject(attachmentField);
+                var rawAttachments = JsonConvert.DeserializeObject<IEnumerable<Dictionary<string, object>>>(json);
 
                 foreach (var rawAttachment in rawAttachments)
                 {
-                    json = JsonSerializer.Serialize(rawAttachment);
-                    attachments.Add(JsonSerializer.Deserialize<AirtableAttachment>(json));
+                    json = JsonConvert.SerializeObject(rawAttachment);
+                    attachments.Add(JsonConvert.DeserializeObject<AirtableAttachment>(json));
                 }
             }
             catch (Exception error)
@@ -93,28 +87,23 @@ namespace AirtableApiClient
 
     public class AirtableRecordList<T>
     {
-        [JsonPropertyName("offset")]
-        [JsonInclude]
+        [JsonProperty("offset")]
         public string Offset { get; internal set; }
 
-        [JsonPropertyName("records")]
-        [JsonInclude]
+        [JsonProperty("records")]
         public AirtableRecord<T>[] Records { get; internal set; }
     }
 
 
     public class AirtableRecord<T>
     {
-        [JsonPropertyName("id")]
-        [JsonInclude]
+        [JsonProperty("id")]
         public string Id { get; internal set; }
 
-        [JsonPropertyName("createdTime")]
-        [JsonInclude]
+        [JsonProperty("createdTime")]
         public DateTime CreatedTime { get; internal set; }
 
-        [JsonPropertyName("fields")]
-        [JsonInclude]
+        [JsonProperty("fields")]
         public T Fields { get; internal set; }
     }
 }

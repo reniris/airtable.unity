@@ -1,25 +1,25 @@
-﻿using System.Text.Json.Serialization;
+﻿using Newtonsoft.Json;
 
 namespace AirtableApiClient
 {
     public class AirtableAttachment
     {
-        [JsonPropertyName("id")]
+        [JsonProperty("id")]
         public string Id { get; set; }
 
-        [JsonPropertyName("url")]
+        [JsonProperty("url")]
         public string Url { get; set; }
 
-        [JsonPropertyName("filename")]
+        [JsonProperty("filename")]
         public string Filename { get; set; }
 
-        [JsonPropertyName("size")]
+        [JsonProperty("size")]
         public long? Size { get; set; }
 
-        [JsonPropertyName("type")]
+        [JsonProperty("type")]
         public string Type { get; set; }
 
-        [JsonPropertyName("thumbnails")]
+        [JsonProperty("thumbnails")]
         public Thumbnails Thumbnails { get; set; }
     }
 
@@ -28,12 +28,10 @@ namespace AirtableApiClient
 
     public class Thumbnails
     {
-        [JsonPropertyName("small")]
-        [JsonInclude]
+        [JsonProperty("small")]
         public Thumbnail Small { get; internal set; }
 
-        [JsonPropertyName("large")]
-        [JsonInclude]
+        [JsonProperty("large")]
         public Thumbnail Large { get; internal set; }
     }
 
@@ -42,16 +40,13 @@ namespace AirtableApiClient
 
     public class Thumbnail
     {
-        [JsonPropertyName("url")]
-        [JsonInclude]
+        [JsonProperty("url")]
         public string Url { get; internal set; }
 
-        [JsonPropertyName("width")]
-        [JsonInclude]
+        [JsonProperty("width")]
         public long Width { get; internal set; }
 
-        [JsonPropertyName("height")]
-        [JsonInclude]
+        [JsonProperty("height")]
         public long Height { get; internal set; }
     }
 
